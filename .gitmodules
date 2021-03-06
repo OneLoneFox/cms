@@ -1,0 +1,3 @@
+[submodule "Djaravel"]
+	path = Djaravel
+	url = https://github.com/OneLoneFox/Djaravel.git
