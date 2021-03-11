@@ -22,4 +22,10 @@ class Admin extends Model
             'usuario' => new ForeignKeyField(Usuario::class, 'Usuario'),
         ];
     }
+
+    function userObject(){
+        return Usuario
+            ::where('id', $this->usuario)
+            ->first();
+    }
 }

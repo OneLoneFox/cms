@@ -5,6 +5,7 @@ use \Models\Usuario;
 use \Models\Admin;
 use \Djaravel\Controllers\Generics\BaseController;
 use \Djaravel\Core\Exceptions\UnsuportedMethodException;
+use \Djaravel\Utils\Shortcuts;
 
 class DashboardLoginController extends BaseController
 {
@@ -15,15 +16,16 @@ class DashboardLoginController extends BaseController
         $password = $_POST['contrasena'];
         $userToAuth = Usuario
             ::where('correo', $email)
-            ->getQuery();
-        if(count($userToAuth) === 1){
-            if($userToAuth[0]->tipo_de_usuario == Usuario::ADMIN){
+            ->first();
+        if($userToAuth){
+            if($userToAuth->tipo_de_usuario == Usuario::ADMIN){
                 $authAdmin = Admin
-                    ::where('usuario', $userToAuth[0]->id)
-                    ->getQuery();
-                if(password_verify($password, $authAdmin[0]->contrasena)){
+                    ::where('usuario', $userToAuth->id)
+                    ->first();
+                if(password_verify($password, $authAdmin->contrasena)){
                     $_SESSION['user'] = $authAdmin;
                     $success_url = $this->getSuccessUrl();
+                    Shortcuts::redirect($success_url);
                     // Redirect
                 }else{
                     // ToDo: handle properly
@@ -65,6 +67,10 @@ class DashboardLoginController extends BaseController
 
     function getSuccessUrl(){
         // obtain next GET
-        return '';
+        return $_GET['next'] ?? $this->getDefaultSuccessUrl();
+    }
+
+    function getDefaultSuccessUrl(){
+        return '/'.$_ENV['BASE_DIR'].'/dashboard/';
     }
 }
