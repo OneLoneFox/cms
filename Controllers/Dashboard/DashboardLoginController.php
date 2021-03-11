@@ -11,28 +11,20 @@ class DashboardLoginController extends BaseController
     protected $template = 'auth/admin_login.html';
 
     function post(...$args){
-
-        $adminToAuth = Admin
-            ::where('usuario', 10)
-            ->getQuery();
-
-        // var_dump($adminToAuth);
-        // die();
-
         $email = $_POST['correo'];
         $password = $_POST['contrasena'];
         $userToAuth = Usuario
             ::where('correo', $email)
             ->getQuery();
-        var_dump($userToAuth);
-        die();
         if(count($userToAuth) === 1){
             if($userToAuth[0]->tipo_de_usuario == Usuario::ADMIN){
-                $adminToAuth = Admin
+                $authAdmin = Admin
                     ::where('usuario', $userToAuth[0]->id)
                     ->getQuery();
-                if(password_verify($password, $adminToAuth[0]->contrasena)){
-                    die('auth succesful');
+                if(password_verify($password, $authAdmin[0]->contrasena)){
+                    $_SESSION['user'] = $authAdmin;
+                    $success_url = $this->getSuccessUrl();
+                    // Redirect
                 }else{
                     // ToDo: handle properly
                     die('invalid password');
@@ -69,5 +61,10 @@ class DashboardLoginController extends BaseController
 
     private function authenticate($user){
         return false;
+    }
+
+    function getSuccessUrl(){
+        // obtain next GET
+        return '';
     }
 }
