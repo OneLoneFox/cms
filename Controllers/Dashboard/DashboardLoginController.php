@@ -5,34 +5,28 @@ use \Models\Usuario;
 use \Models\Admin;
 use \Djaravel\Controllers\Generics\BaseController;
 use \Djaravel\Core\Exceptions\UnsuportedMethodException;
+use \Djaravel\Utils\Shortcuts;
 
 class DashboardLoginController extends BaseController
 {
     protected $template = 'auth/admin_login.html';
 
     function post(...$args){
-
-        $adminToAuth = Admin
-            ::where('usuario', 10)
-            ->getQuery();
-
-        // var_dump($adminToAuth);
-        // die();
-
         $email = $_POST['correo'];
         $password = $_POST['contrasena'];
         $userToAuth = Usuario
             ::where('correo', $email)
-            ->getQuery();
-        var_dump($userToAuth);
-        die();
-        if(count($userToAuth) === 1){
-            if($userToAuth[0]->tipo_de_usuario == Usuario::ADMIN){
-                $adminToAuth = Admin
-                    ::where('usuario', $userToAuth[0]->id)
-                    ->getQuery();
-                if(password_verify($password, $adminToAuth[0]->contrasena)){
-                    die('auth succesful');
+            ->first();
+        if($userToAuth){
+            if($userToAuth->tipo_de_usuario == Usuario::ADMIN){
+                $authAdmin = Admin
+                    ::where('usuario', $userToAuth->id)
+                    ->first();
+                if(password_verify($password, $authAdmin->contrasena)){
+                    $_SESSION['user'] = $authAdmin;
+                    $success_url = $this->getSuccessUrl();
+                    Shortcuts::redirect($success_url);
+                    // Redirect
                 }else{
                     // ToDo: handle properly
                     die('invalid password');
@@ -69,5 +63,14 @@ class DashboardLoginController extends BaseController
 
     private function authenticate($user){
         return false;
+    }
+
+    function getSuccessUrl(){
+        // obtain next GET
+        return $_GET['next'] ?? $this->getDefaultSuccessUrl();
+    }
+
+    function getDefaultSuccessUrl(){
+        return '/'.$_ENV['BASE_DIR'].'/dashboard/';
     }
 }
