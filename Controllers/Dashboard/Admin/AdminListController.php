@@ -1,6 +1,6 @@
 <?php
 
-namespace Dashboard\Controllers\Admin;
+namespace Controllers\Dashboard\Admin;
 use \Djaravel\Controllers\Generics\ListController;
 use \Models\Admin;
 

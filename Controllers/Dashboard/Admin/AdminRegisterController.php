@@ -2,7 +2,7 @@
 
 // ToDo: add duplicate email constraint
 
-namespace Dashboard\Controllers\Admin;
+namespace Controllers\Dashboard\Admin;
 use \Djaravel\Controllers\Generics\CreateController;
 use \Djaravel\Utils\ModelFactory;
 use \Djaravel\Utils\Shortcuts;
@@ -11,7 +11,7 @@ use \Models\Admin;
 
 class AdminRegisterController extends CreateController
 {
-    protected $template = 'admin_register.html';
+    protected $template = 'auth/admin_register.html';
     protected $model = Usuario::class;
     protected $success_url = '/cms/admins/';
     private $subModel = Admin::class;
