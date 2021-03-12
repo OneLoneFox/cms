@@ -13,8 +13,13 @@ class AdminRegisterController extends CreateController
 {
     protected $template = 'auth/admin_register.html';
     protected $model = Usuario::class;
-    protected $success_url = '/cms/admins/';
+    protected $success_url;
     private $subModel = Admin::class;
+
+    function __construct(){
+        parent::__construct();
+        $this->success_url = '/'.$_ENV['BASE_DIR'].'/dashboard/admins/';
+    }
     
 
     function post(...$args){

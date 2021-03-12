@@ -1,0 +1,10 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<ul>
+    {% for admin in object_list %}
+        <li>{{ admin.userObject.nombre }}</li>
+    {% endfor %}
+</ul>        
+{% endblock content %}
+    
