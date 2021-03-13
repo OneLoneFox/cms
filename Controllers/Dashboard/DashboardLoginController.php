@@ -11,6 +11,8 @@ class DashboardLoginController extends BaseController
 {
     protected $template = 'auth/admin_login.html';
 
+    protected $error;
+
     function post(...$args){
         $email = $_POST['correo'];
         $password = $_POST['contrasena'];
@@ -33,12 +35,19 @@ class DashboardLoginController extends BaseController
                 }
             }else{
                 // ToDo: handle properly
-                die('not an admin');
+                $this->error = 'No es un admin';
+                $this->get(...$args);
             }
         }else{
             // ToDo: handle properly
             die('no user');
         }
+    }
+
+    function getContextData(...$args){
+        $context = parent::getContextData(...$args);
+        $context['error'] = $this->error;
+        return $context;
     }
 
     function get(...$args){
