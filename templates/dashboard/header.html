@@ -1,7 +1,15 @@
-<h1 id="header-title">{% block header_title %}Header title{% endblock header_title %}</h1>
+<h1 id="header-title">
+    
+    {% if header_title is empty %}
+        Dashboard header title
+    {% else %}
+        {{ header_title }}
+    {% endif %}
+        
+</h1>
 
 <div class="profile" @click="showMenu = !showMenu">
-    <vs-avatar>
+    <vs-avatar color="#292929">
         <template #text>
             {{ userObject.nombre|title }}
         </template>
@@ -20,6 +28,11 @@
             <a href="/cms/dashboard/logout/" class="menu-item">
                 <i class='bx bx-door-open' ></i>
                 Logout
+            </a>
+            <span class="separator"></span>
+            <a href="/cms/dashboard/admins/register/" class="menu-item">
+                <i class='bx bx-check-shield'></i>
+                Create admin
             </a>
         </div>
     </transition>

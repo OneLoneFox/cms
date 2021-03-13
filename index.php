@@ -9,9 +9,15 @@ $router->set404('\Controllers\NotFoundController@dispatch');
 $router->get('/', '\Controllers\LandingController@dispatch');
 
 $router->mount('/dashboard', function() use ($router) {
+    
     $router->get('/', '\Controllers\Dashboard\DashboardIndexController@dispatch');
+    
+    $router->get('/profile', '\Controllers\Dashboard\Admin\AdminProfileController@dispatch');
+
     $router->get('/logout/', '\Controllers\Dashboard\LogoutController@dispatch');
+    
     $router->match('GET|POST', '/login', '\Controllers\Dashboard\DashboardLoginController@dispatch');
+    
     $router->mount('/admins', function() use ($router) {
         $router->get('/', '\Controllers\Dashboard\Admin\AdminListController@dispatch');
         if($_ENV['DEBUG']){

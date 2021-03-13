@@ -1,3 +1,15 @@
-<p>sidebar</p>
+<div id="hero">
+    <p>CMS</p>
+</div>
 
-<a href="/cms/dashboard/admins/">Admins list</a>
+<div id="nav">
+    <a href="/cms/dashboard/" class="nav-item" :class="{active: active == 'home'}">
+        <i class='bx bxs-home'></i>
+        <span>Home</span>
+    </a>
+    <a href="/cms/dashboard/admins/" class="nav-item" :class="{active: active == 'staff'}">
+        <i class='bx bxs-shield' ></i>
+        <span>Staff</span>
+    </a>
+
+</div>

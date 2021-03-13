@@ -1,9 +1,13 @@
 {% extends 'dashboard/base.html' %}
-    
 
 {% block content %}
-    <h1>Welcome {{ userObject.nombre }}</h1>
+<ul>
+    {% for admin in object_list %}
+        <li>{{ admin.userObject.nombre }}</li>
+    {% endfor %}
+</ul>        
 {% endblock content %}
+
 
 {% block scripts %}
 <script>
@@ -11,10 +15,10 @@
         mixins: [dashboard_mixin],
         delimiters: ['[[', ']]'],
         data: function(){
-            return {
-                active: 'home',
+            return{
+                active: 'staff'
             }
         },
     });
-</script>    
+</script>
 {% endblock scripts %}
