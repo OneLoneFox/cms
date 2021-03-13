@@ -22,7 +22,7 @@ class AdminRegisterController extends CreateController
 		$errors = $this->validator->validate($newUser);
 		if (count($errors) > 0){
 			// If there are any errors go back to the form and print them
-			parent::dispatch(...$args);
+            $this->get(...$args);
 			die();
 		}
 		if($newUser->save()){
@@ -34,7 +34,7 @@ class AdminRegisterController extends CreateController
             $errors = $this->validator->validate($newAdmin);
             if(count($errors) > 0){
                 // Sadly we can only print one model error list at a time
-                parent::dispatch(...$args);
+                $this->get(...$args);
                 die();
             }
             if($newAdmin->save()){
