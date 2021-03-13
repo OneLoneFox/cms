@@ -3,7 +3,7 @@
 
 
 {% block content %}
-    <h1>Welcome {{ user.userObject.nombre }}</h1>
+    <h1>Welcome {{ userObject.nombre }}</h1>
 {% endblock content %}
 
 {% block scripts %}
@@ -12,7 +12,7 @@
         el: '#app',
         delimiters: ['[[', ']]'],
         data: {
-            
+            showMenu: false,
         },
         methods: {
 
