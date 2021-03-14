@@ -1,0 +1,25 @@
+{% extends 'dashboard/base.html' %}
+
+
+{% block header_title %}
+    {{ object.nombre }}
+{% endblock header_title %}
+    
+
+{% block content %}
+<p>This page is going to containt some heavy as fuck logic.</p>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+    var vm = new Vue({
+        mixins: [dashboard_mixin],
+        data: function(){
+            return {
+                active: 'post',
+            };
+        },
+    });
+</script>
+{% endblock scripts %}

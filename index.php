@@ -26,6 +26,16 @@ $router->mount('/dashboard', function() use ($router) {
         }
     });
 
+    $router->mount('/posts', function() use ($router) {
+        $router->get('/', '\Controllers\Dashboard\Post\PostListController@dispatch');
+        $router->match('GET|POST', '/create', '\Controllers\Dashboard\Post\PostCreateController@dispatch');
+        # ToDo: missing implementation
+        // $router->get('/(\d+)/preview', '\Controllers\Dashboard\Post\PostPreviewController@dispatch');
+        $router->get('/(\d+)/edit', '\Controllers\Dashboard\Post\PostEditController@dispatch');
+        $router->match('GET|POST', '/(\d+)/delete', '\Controllers\Dashboard\Post\PostDeleteController@dispatch');
+
+    });
+
 });
 
 

@@ -28,4 +28,8 @@ class Admin extends Model
             ::where('id', $this->usuario)
             ->first();
     }
+
+    function __toString(){
+        return $this->userObject->nombre;
+    }
 }

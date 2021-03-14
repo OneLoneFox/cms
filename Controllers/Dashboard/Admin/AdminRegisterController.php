@@ -16,7 +16,7 @@ class AdminRegisterController extends CreateController
 
     public $loginUrl = '/dashboard/login/';
     protected $template = 'auth/admin_register.html';
-    
+
     protected $model = Usuario::class;
     protected $success_url;
     private $subModel = Admin::class;
@@ -57,6 +57,12 @@ class AdminRegisterController extends CreateController
 		}else{
 			throw new \Exception('Something went wrong creating the user');
 		}
+    }
+
+    function getContextData(...$args){
+        $context = parent::getContextData(...$args);
+        $context['userObject'] = $context['user']->userObject;
+        return $context;
     }
 
     private function createPassword($password){

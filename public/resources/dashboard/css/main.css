@@ -1,3 +1,28 @@
+a.btn{
+    text-decoration: none;
+}
+
+.btn{
+    height: 36px;
+	padding: 6px 16px;
+	border-radius: 8px;
+	background: var(--primary, blue);
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	transition: box-shadow 280ms ease, filter 300ms ease;
+}
+.btn:disabled, .btn.disabled{
+	pointer-events: none;
+	opacity: 0.6;
+}
+.btn:hover, .btn:focus, .btn:active{
+	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+}
+.btn:active{
+	filter: brightness(140%);
+}
+
 #app{
     width: 100%;
     height: 100%;
@@ -7,7 +32,7 @@
         "sidebar content"
     ;
     grid-template-rows: 90px 1fr;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: minmax(250px, max-content) 1fr;
     background-color: #F2F5FA;
 }
 #header{
@@ -35,6 +60,9 @@
                 text-overflow: ellipsis;
                 margin: 0;
             }
+            #header > .profile > .info > .name{
+                font-weight: bold;
+            }
             #header > .profile > .info > .email{
                 font-size: 12px;
                 opacity: .6;
@@ -53,7 +81,6 @@
     box-shadow: 2px 2px 8px 0 rgba(0,0,0,.09);
     min-width: 200px;
     z-index: 3;
-    user-select: all;
 }
     #profile-menu > .menu-item{
         display: flex;
@@ -90,6 +117,7 @@
 #main{
     grid-area: content;
     padding: 20px;
+    overflow: auto;
 }
 #sidebar{
     display: grid;
