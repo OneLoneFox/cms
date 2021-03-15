@@ -17,8 +17,11 @@ $router->mount('/dashboard', function() use ($router) {
         if($_ENV['DEBUG']){
             // This will ensure we can only acces the admin registration on local
             $router->match('GET|POST', '/register', '\Controllers\Dashboard\Admin\AdminRegisterController@dispatch');
+            // test create Authors
+            $router->match('GET|POST', '/registerAuthor', '\Controllers\Dashboard\Author\AuthorRegisterController@dispatch');
         }
     });
+    $router->get('/authors', '\Controllers\Dashboard\Author\AuthorListController@dispatch');
 
 });
 

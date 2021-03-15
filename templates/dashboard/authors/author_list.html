@@ -1,0 +1,9 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<ul>
+    {% for autor in object_list %}
+        <li>{{ autor.userObject.nombre }}</li>
+    {% endfor %}
+</ul>        
+{% endblock content %}
