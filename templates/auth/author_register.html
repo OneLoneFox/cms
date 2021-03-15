@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+</head>
+<body>
+    <form action="" method="POST" autocomplete="off">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="text" name="correo" placeholder="Correo" required>
+        <input type="password" placeholder="Contraseña" name="contrasena" autocomplete="new-password">
+        <input type="text" name="celular" placeholder="Celular" required>
+        <input type="text" name="articulo" placeholder="Articulo" required>
+        <select name="status" required>
+            <option value="1">Aprobado</option>
+            <option value="2">En revisión</option>
+            <option value="3">Rechazado</option>
+        </select>
+        <select name="sexo">
+            <option value="m">Masculino</option>
+            <option value="f">Femenino</option>
+        </select>
+        <input type="hidden" name="tipo_de_usuario" value="2">
+        <input type="submit">
+    </form>
+</body>
+</html>
