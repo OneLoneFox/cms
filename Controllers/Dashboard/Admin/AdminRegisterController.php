@@ -6,12 +6,17 @@ namespace Controllers\Dashboard\Admin;
 use \Djaravel\Controllers\Generics\CreateController;
 use \Djaravel\Utils\ModelFactory;
 use \Djaravel\Utils\Shortcuts;
+use \Djaravel\Auth\Traits\RequestAccessTrait;
 use \Models\Usuario;
 use \Models\Admin;
 
 class AdminRegisterController extends CreateController
 {
+    use RequestAccessTrait;
+
+    public $loginUrl = '/dashboard/login/';
     protected $template = 'auth/admin_register.html';
+
     protected $model = Usuario::class;
     protected $success_url;
     private $subModel = Admin::class;
@@ -27,7 +32,7 @@ class AdminRegisterController extends CreateController
 		$errors = $this->validator->validate($newUser);
 		if (count($errors) > 0){
 			// If there are any errors go back to the form and print them
-			parent::dispatch(...$args);
+            $this->get(...$args);
 			die();
 		}
 		if($newUser->save()){
@@ -39,7 +44,7 @@ class AdminRegisterController extends CreateController
             $errors = $this->validator->validate($newAdmin);
             if(count($errors) > 0){
                 // Sadly we can only print one model error list at a time
-                parent::dispatch(...$args);
+                $this->get(...$args);
                 die();
             }
             if($newAdmin->save()){
@@ -54,7 +59,18 @@ class AdminRegisterController extends CreateController
 		}
     }
 
+    function getContextData(...$args){
+        $context = parent::getContextData(...$args);
+        $context['userObject'] = $context['user']->userObject;
+        return $context;
+    }
+
     private function createPassword($password){
         return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    function hasPermission(){
+        $user = $_SESSION['user'];
+        return $user->userObject->tipo_de_usuario == Usuario::ADMIN;
     }
 }

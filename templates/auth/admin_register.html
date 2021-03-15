@@ -1,24 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-</head>
-<body>
-    {{ dump(form_errors) }}
-    <form action="" method="POST" autocomplete="off">
-        <input type="text" name="nombre" placeholder="Nombre" required>
-        <input type="text" name="correo" placeholder="Correo" required>
-        <input type="password" placeholder="Contraseña" name="contrasena" autocomplete="new-password">
-        <input type="text" name="celular" placeholder="Celular" required>
-        <select name="sexo">
-            <option value="m">Masculino</option>
-            <option value="f">Femenino</option>
-        </select>
-        <input type="hidden" name="tipo_de_usuario" value="0">
-        <input type="submit">
-    </form>
-</body>
-</html>
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<form action="" method="POST" autocomplete="off">
+    <input type="text" name="nombre" placeholder="Nombre" value="{{ request.post.nombre }}" required>
+    {% for error in form_errors.nombre %}
+    <span>{{ error }}</span>
+    {% endfor %}
+    <input type="text" name="correo" placeholder="Correo" value="{{ request.post.correo }}" required>
+    {% for error in form_errors.correo %}
+    <span>{{ error }}</span>
+    {% endfor %}
+    <input type="password" placeholder="Contraseña" name="contrasena" value="{{ request.post.contrasena }}" autocomplete="new-password">
+    {% for error in form_errors.contrasena %}
+    <span>{{ error }}</span>
+    {% endfor %}
+    <input type="text" name="celular" placeholder="Celular" value="{{ request.post.celular }}"required>
+    {% for error in form_errors.celular %}
+    <span>{{ error }}</span>
+    {% endfor %}
+    <select name="sexo" value="{{ request.post.sexo }}">
+        <option value="m">Masculino</option>
+        <option value="f">Femenino</option>
+    </select>
+    <input type="hidden" name="tipo_de_usuario" value="0">
+    <input type="submit">
+</form>
+{% endblock content %}
+
+
+{% block scripts %}
+<script>
+    var vm = new Vue({
+        mixins: [dashboard_mixin],
+        data: function(){
+            return {
+                active: 'staff',
+            };
+        },
+    });
+</script>
+{% endblock scripts %}
+    

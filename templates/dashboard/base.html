@@ -25,9 +25,12 @@
 </head>
 <body>
     <div id="app">
+        
+        {# This is needed for some reason #}
+        {% block header_title %}{% endblock header_title %}
         {% block header %}
         <div id="header">
-            {% include 'dashboard/header.html' %}
+            {% include 'dashboard/header.html' with {header_title: block('header_title')} %}
         </div>
         {% endblock header %}
         <div id="main">
@@ -40,12 +43,13 @@
         {% endblock sidebar %}
     </div>
 
-    <!-- Vuejs production -->
-    <!-- <script src="{{ static('core/js/vue.js') }}"></script> -->
-    <!-- Vuejs DEV ONLY -->
-    <script src="{{ static('core/js/vue.min.js') }}"></script>
+    {# Vuejs production #}
+    <!-- <script src="{{ static('core/js/vue.min.js') }}"></script> -->
+    {# Vuejs DEV ONLY #}
+    <script src="{{ static('core/js/vue.js') }}"></script>
     <!-- Vuesax -->
     <script src="https://unpkg.com/vuesax@4.0.1-alpha.25/dist/vuesax.min.js"></script>
+    <script src="{{ static('dashboard/js/dashboard_mixin.js') }}"></script>
     {% block scripts %}
     {% endblock scripts %}
 </body>
