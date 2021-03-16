@@ -13,6 +13,12 @@ class AuthorListController extends ListController{
 
     protected $model = Autor::class;
 
+    function getContextData(...$args){
+        $context = parent::getContextData(...$args);
+        $context['userObject'] = $context['user']->userObject;
+        return $context;
+    }
+
     function hasPermission(){
         $user = $_SESSION['user'];
         return $user->userObject->tipo_de_usuario == Usuario::ADMIN;
