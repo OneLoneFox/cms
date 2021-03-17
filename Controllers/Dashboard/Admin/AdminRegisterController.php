@@ -70,6 +70,9 @@ class AdminRegisterController extends CreateController
     }
 
     function hasPermission(){
+        if($_ENV['DEBUG']){
+            return true;    
+        }
         $user = $_SESSION['user'];
         return $user->userObject->tipo_de_usuario == Usuario::ADMIN;
     }
