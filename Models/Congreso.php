@@ -2,7 +2,7 @@
 
 namespace Models;
 use \Djaravel\Models\Model;
-use \Djaravel\Models\Fields\PrimaryKeyfield;
+use \Djaravel\Models\Fields\PrimaryKeyField;
 use \Djaravel\Models\Fields\VarcharField;
 use \Djaravel\Models\Fields\IntegerField;
 use \Djaravel\Models\Fields\ForeignKeyField;
