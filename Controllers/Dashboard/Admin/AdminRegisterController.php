@@ -12,9 +12,9 @@ use \Models\Admin;
 
 class AdminRegisterController extends CreateController
 {
-    // use RequestAccessTrait;
+    use RequestAccessTrait;
 
-    // public $loginUrl = '/dashboard/login/';
+    public $loginUrl = '/dashboard/login/';
     protected $template = 'auth/admin_register.html';
 
     protected $model = Usuario::class;
@@ -70,9 +70,6 @@ class AdminRegisterController extends CreateController
     }
 
     function hasPermission(){
-        if($_ENV['DEBUG']){
-            return true;    
-        }
         $user = $_SESSION['user'];
         return $user->userObject->tipo_de_usuario == Usuario::ADMIN;
     }
