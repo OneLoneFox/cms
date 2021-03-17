@@ -12,9 +12,9 @@ use \Models\Admin;
 
 class AdminRegisterController extends CreateController
 {
-    use RequestAccessTrait;
+    // use RequestAccessTrait;
 
-    public $loginUrl = '/dashboard/login/';
+    // public $loginUrl = '/dashboard/login/';
     protected $template = 'auth/admin_register.html';
 
     protected $model = Usuario::class;
