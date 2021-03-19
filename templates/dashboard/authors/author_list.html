@@ -12,34 +12,32 @@
 {% endblock styles %}
 
 {% block content %}
-<ul>
-    <div id="table">
-        <vs-table>
-            <template #thead>
-                <vs-tr>
-                    <vs-th>Id</vs-th>
-                    <vs-th>Nombre</vs-th>
-                    <vs-th>Correo</vs-th>
-                    <vs-th>Celular</vs-th>
-                    <vs-th>Sexo</vs-th>
-                </vs-tr>
-            </template>
-            <template #tbody>
-                <vs-tr
-                    :key="i"
-                    v-for="(item, i) in users"
-                    :data="item"
-                >
-                    <vs-td>[[ item.id ]]</vs-td>
-                    <vs-td>[[ item.nombre ]]</vs-td>
-                    <vs-td>[[ item.correo ]]</vs-td>
-                    <vs-td>[[ item.celular ]]</vs-td>
-                    <vs-td>[[ item.sexo ]]</vs-td>
-                </vs-tr>
-            </template>
-        </vs-table>
-    </div>
-</ul>
+<div id="table">
+    <vs-table>
+        <template #thead>
+            <vs-tr>
+                <vs-th>Id</vs-th>
+                <vs-th>Nombre</vs-th>
+                <vs-th>Correo</vs-th>
+                <vs-th>Celular</vs-th>
+                <vs-th>Sexo</vs-th>
+            </vs-tr>
+        </template>
+        <template #tbody>
+            <vs-tr
+                :key="i"
+                v-for="(item, i) in users"
+                :data="item"
+            >
+                <vs-td>[[ item.id ]]</vs-td>
+                <vs-td>[[ item.nombre ]]</vs-td>
+                <vs-td>[[ item.correo ]]</vs-td>
+                <vs-td>[[ item.celular ]]</vs-td>
+                <vs-td>[[ item.sexo ]]</vs-td>
+            </vs-tr>
+        </template>
+    </vs-table>
+</div>
 {% endblock content %}
 
 
