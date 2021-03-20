@@ -41,6 +41,12 @@ $router->mount('/dashboard', function() use ($router) {
 
 });
 
+$router->mount('/api', function() use ($router){
+    $router->mount('/tabs', function() use ($router){
+        $router->post('/create', '\Controllers\Api\Tab\TabCreateEndpoint@dispatch');
+    });
+});
+
 
 $router->run();
 

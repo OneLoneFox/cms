@@ -17,7 +17,7 @@ class Admin extends Model
 
     static function getFields(){
         return [
-            'id' => new PrimaryKeyField(),
+            'id' => new PrimaryKeyField('Id'),
             'contrasena' => new VarcharField(false, 256, 'Contraseña'),
             'usuario' => new ForeignKeyField(Usuario::class, 'Usuario'),
         ];
