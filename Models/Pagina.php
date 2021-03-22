@@ -21,7 +21,8 @@ class Pagina extends Model
         return [
             'id' => new PrimaryKeyField('Id'),
             'nombre' => new VarcharField(false, 20, 'Nombre'),
-            'contenido' => new LongtextField('Contenido'),
+            // 'contenido' => new VarcharField(false, -1, 'Contenido'),
+            'contenido' => new LongtextField(true, 'Contenido'),
             'congreso' => new ForeignKeyField(Congreso::class, 'Congreso'),
         ];
     }

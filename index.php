@@ -44,9 +44,13 @@ $router->mount('/dashboard', function() use ($router) {
 $router->mount('/api', function() use ($router){
     $router->mount('/tabs', function() use ($router){
         $router->post('/create', '\Controllers\Api\Tab\TabCreateEndpoint@dispatch');
+        $router->post('/(\d+)/delete', '\Controllers\Api\Tab\TabDeleteEndpoint@dispatch');
+        $router->get('/(\d+)/delete', '\Controllers\Api\Tab\TabDeleteEndpoint@dispatch');
+    });
+    $router->mount('/posts', function() use ($router){
+        $router->get('/(\d+)/tabs', '\Controllers\Api\Tab\TabListEndpoint@dispatch');
     });
 });
 
 
 $router->run();
-

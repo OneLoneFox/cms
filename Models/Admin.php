@@ -29,7 +29,7 @@ class Admin extends Model
             ->first();
     }
 
-    function __toString(){
-        return $this->userObject->nombre;
-    }
+    // function __toString(){
+    //     return $this->userObject->nombre;
+    // }
 }
