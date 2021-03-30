@@ -6,7 +6,7 @@
     #table {
         background: #fff;
         border-radius: 16px;
-        box-shadow: 0 5px 20px 0 rgba(0,0,0,0.06);
+        box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.06);
     }
 </style>
 {% endblock styles %}
@@ -24,11 +24,7 @@
             </vs-tr>
         </template>
         <template #tbody>
-            <vs-tr
-                :key="i"
-                v-for="(item, i) in users"
-                :data="item"
-            >
+            <vs-tr :key="i" v-for="(item, i) in users" :data="item">
                 <vs-td>[[ item.id ]]</vs-td>
                 <vs-td>[[ item.nombre ]]</vs-td>
                 <vs-td>[[ item.correo ]]</vs-td>
@@ -42,16 +38,17 @@
 
 {% block scripts %}
 <script>
-    const USERS = {{ serialized_users|raw }};
+    const USERS = {{ serialized_users| raw }};
 </script>
 <script>
     var vm = new Vue({
         mixins: [dashboard_mixin],
-        delimiters: ['[[', ']]'],
-        data: function(){
-            return{
+        // delimiters: ['[[', ']]'],
+        data: function () {
+            return {
                 active: 'staff',
                 users: USERS,
+                // users: [],
             }
         },
     });

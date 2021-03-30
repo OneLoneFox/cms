@@ -14,13 +14,25 @@
 {% block content %}
 <div id="table">
     <vs-table>
+        <template #header>
+            <vs-select
+                @change="changePostFilter"
+                placeholder="Selecciona un congreso"
+                v-model="selectedPost"
+                {% if posts is empty %}disabled{% endif %}
+            >
+                {% for post in posts %}
+                    <vs-option label="{{ post.nombre }}" value="{{ post.id }}">{{ post.nombre }}</vs-option>
+                {% endfor %}            
+            </vs-select>
+        </template>
         <template #thead>
             <vs-tr>
-                <vs-th>Id</vs-th>
-                <vs-th>Nombre</vs-th>
-                <vs-th>Correo</vs-th>
-                <vs-th>Celular</vs-th>
-                <vs-th>Sexo</vs-th>
+                <vs-th sort @click="sort($event, 'nombre')">Nombre</vs-th>
+                <vs-th sort @click="sort($event, 'correo')">Correo</vs-th>
+                <vs-th sort @click="sort($event, 'celular')">Celular</vs-th>
+                <vs-th sort @click="sort($event, 'sexo')">Sexo</vs-th>
+                <vs-th sort @click="sort($event, 'status')">Status</vs-th>
             </vs-tr>
         </template>
         <template #tbody>
@@ -29,12 +41,15 @@
                 v-for="(item, i) in users"
                 :data="item"
             >
-                <vs-td>[[ item.id ]]</vs-td>
-                <vs-td>[[ item.nombre ]]</vs-td>
-                <vs-td>[[ item.correo ]]</vs-td>
-                <vs-td>[[ item.celular ]]</vs-td>
-                <vs-td>[[ item.sexo ]]</vs-td>
+                <vs-td>[[ item.usuario.nombre ]]</vs-td>
+                <vs-td>[[ item.usuario.correo ]]</vs-td>
+                <vs-td>[[ item.usuario.celular ]]</vs-td>
+                <vs-td>[[ item.usuario.sexo ]]</vs-td>
+                <vs-td>[[ item.status ]]</vs-td>
             </vs-tr>
+        </template>
+        <template #footer v-if="totalPages > 1">
+            <vs-pagination @input="changePage" v-model="currentPage" :length="totalPages" />
         </template>
     </vs-table>
 </div>
@@ -43,7 +58,7 @@
 
 {% block scripts %}
 <script>
-    const USERS = {{ serialized_users|raw }};
+    // const USERS = {{ serialized_users|raw }};
 </script>
 <script>
     var vm = new Vue({
@@ -52,8 +67,64 @@
         data: function(){
             return {
                 active: 'authors',
-                users: USERS,
+                users: [],
+                sortAttr: null,
+                sortDir: null,
+                pageSize: 10,
+                currentPage: 1,
+                totalPages: null,
+                selectedPost: '',
             }
+        },
+        methods: {
+            changePage: function(page){
+                this.currentPage = page;
+                this.fetchUsers();
+            },
+            changePostFilter: function(){
+                this.fetchUsers();
+            },
+            fetchUsers: function(){
+                url = `/cms/api/posts/${this.selectedPost}/authors/?page=${this.currentPage}`;
+                if(this.sortAttr != null){
+                    url += `&orderBy=${this.sortAttr}&direction=${this.sortDir}`;
+                }
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        this.users = data.data;
+                        this.totalPages = data.total_pages;
+                    }).catch(console.error);
+            },
+            sort: function(event, sortAttr){
+                if(!this.selectedPost){
+                    return;
+                }
+                this.changeSort(event, sortAttr);
+                this.sortAttr = sortAttr;
+                this.fetchUsers();
+            },
+            changeSort: function(event, sortAttr){
+                let el = event.target;
+                let parent = el.parentElement;
+                if(this.sortAttr != sortAttr){
+                    // reset all sort arrows if sorting by a different attribute
+                    parent.querySelectorAll('th').forEach(th => {th.removeAttribute('data-sort-type')});
+                }
+                let sortType = el.dataset['sortType'] || 'desc';
+                if(sortType == "null"){
+                    sortType = 'desc';
+                }else if(sortType == 'desc'){
+                    sortType = 'asc';
+                }else if(sortType == 'asc'){
+                    sortType = 'desc';
+                }
+                this.sortDir = sortType;
+                el.dataset['sortType'] = sortType;
+            },
+        },
+        created: function(){
+            // this.fetchUsers();
         }
     });
 </script>

@@ -28,6 +28,8 @@ class TabCreateEndpoint
                     'Could not create tab, the name '.$tabName.' already exists.'
                 ],
             ];
+            echo json_encode($response);
+            return;
         }
         # Create new object
         $newTab = ModelFactory::fromArray(self::$model, $content);

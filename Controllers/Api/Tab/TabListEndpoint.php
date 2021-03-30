@@ -11,7 +11,11 @@ class TabListEndpoint
 
     static function dispatch(...$args){
         # Id of parent post is the first element of args
-        $postTabs = Pagina::where('congreso', $args[0])->getQuery();
+        $postTabs = Pagina
+            ::select('id', 'nombre')
+            ->where('congreso', $args[0])
+            ->orderBy('id')
+            ->getQuery();
         $serializer = new ModelSerializer($postTabs);
         $response = [
             'success' => true,

@@ -43,12 +43,21 @@ $router->mount('/dashboard', function() use ($router) {
 
 $router->mount('/api', function() use ($router){
     $router->mount('/tabs', function() use ($router){
-        $router->post('/create', '\Controllers\Api\Tab\TabCreateEndpoint@dispatch');
+        $router->get('/(\d+)', '\Controllers\Api\Tab\TabDetailEndpoint@dispatch');
+        $router->patch('/(\d+)', '\Controllers\Api\Tab\TabUpdateEndpoint@dispatch');
+        $router->post('/', '\Controllers\Api\Tab\TabCreateEndpoint@dispatch');
         $router->post('/(\d+)/delete', '\Controllers\Api\Tab\TabDeleteEndpoint@dispatch');
-        $router->get('/(\d+)/delete', '\Controllers\Api\Tab\TabDeleteEndpoint@dispatch');
+        $router->post('/images', '\Controllers\Api\Tab\TabImageUploadEndpoint@dispatch');
     });
+
+    $router->mount('/authors', function() use ($router){
+        // ToDo: missing implementation
+        $router->patch('/(\d+)', '\Controllers\Api\Author\AuthorUpdateEndpoint@dispatch');
+    });
+    
     $router->mount('/posts', function() use ($router){
         $router->get('/(\d+)/tabs', '\Controllers\Api\Tab\TabListEndpoint@dispatch');
+        $router->get('/(\d+)/authors', '\Controllers\Api\Author\AuthorListEndpoint@dispatch');
     });
 });
 

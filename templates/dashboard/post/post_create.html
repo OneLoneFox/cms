@@ -1,24 +1,47 @@
 {% extends 'dashboard/base.html' %}
 
 
+{% block styles %}
+<style>
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-end;
+        width: 350px;
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 5px 5px 15px rgba(102, 109, 255, 0.1);
+    }
+</style>
+{% endblock styles %}
+
 {% block content %}
-    {% for field, errors in form_errors %}
-	    <h3>{{ field }}</h3>
-		{% for error in errors %}
-		<p>{{ error }}</p>
-		{% endfor %}
-	{% endfor %}
     <form action="" method="post">
-        <input type="text" name="nombre">
-        <input type="text" name="programa_pdf">
-        <select name="publico">
-            <option value="0">Privado</option>
-            <option value="1">Publico</option>
-            <option value="2">¡Invalido!</option>
-        </select>
-        <button>submit</button>
+        <vs-input name="nombre" placeholder="Nombre" block>
+        {% for error in form_errors['nombre'] %}
+            <template #message-danger>
+              {{ error }}
+            </template>
+        {% endfor %}
+        </vs-input>
+        <vs-select placeholder="Status" v-model="value" block>
+            {% for error in form_errors['publico'] %}
+                <template #message-danger>
+                {{ error }}
+                </template>
+            {% endfor %}
+            <vs-option label="Privado" value="0">
+                Privado
+            </vs-option>
+            <vs-option label="Publico" value="1">
+                Publico
+            </vs-option>
+        </vs-select>
+        <input name="publico" type="hidden" :value="value">
+        <vs-button>Crear</vs-button>
     </form>
-    
 {% endblock content %}
 
 
@@ -29,6 +52,7 @@
         data: function(){
             return {
                 active: 'post',
+                value: '',
             };
         }
     });

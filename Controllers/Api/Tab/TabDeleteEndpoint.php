@@ -6,6 +6,7 @@ use \Models\Pagina;
 class TabDeleteEndpoint
 {
     // ToDo: validate admin user
+    // ToDo: Delete the folder containing the uploaded images uploads/{post_id}/{tab_id}/
     static function dispatch(...$args){
         if(!Pagina::exists(...$args)){
             http_response_code(404);

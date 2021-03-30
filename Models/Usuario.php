@@ -48,4 +48,8 @@ class Usuario extends Model
             'tipo_de_usuario' => new IntegerField(1, 'Tipo de usuario', self::USER_TYPE_CHOICES),
         ];
     }
+
+    function author(){
+        return Autor::where('usuario', $this->id)->first();
+    }
 }

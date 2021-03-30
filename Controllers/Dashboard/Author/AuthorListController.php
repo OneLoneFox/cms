@@ -6,6 +6,7 @@ use \Djaravel\Auth\Traits\RequestAccessTrait;
 use \Djaravel\Serializers\ModelSerializer;
 use \Models\Autor;
 use \Models\Usuario;
+use \Models\Congreso;
 
 class AuthorListController extends ListController{
     use RequestAccessTrait;
@@ -23,6 +24,7 @@ class AuthorListController extends ListController{
         $serializer = new ModelSerializer($users);
         $context['userObject'] = $context['user']->userObject;
         $context['serialized_users'] = $serializer->data;
+        $context['posts'] = Congreso::all();
         return $context;
     }
 

@@ -41,7 +41,7 @@
         </template>
         <template #text>
             <p>
-                <i class='bx bxs-shield' ></i>&nbsp;{{ object.createdBy.nombre }}
+                <i class='bx bxs-shield'></i>&nbsp;{{ object.createdBy.nombre }}-
             </p>
         </template>
         <template #interactions>
@@ -57,7 +57,7 @@
         </template>
     </vs-card>
     {% else %}
-    <h3>N O.</h3>
+    <h3>Empty</h3>
     {% endfor %}
 </div>
 

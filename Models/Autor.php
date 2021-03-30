@@ -26,6 +26,7 @@ class Autor extends Model
     protected $usuario;
     protected $articulo;
     protected $status;
+    protected $congreso;
 
     static function getFields(){
         return [
@@ -34,7 +35,7 @@ class Autor extends Model
             'articulo' => new VarcharField(false, 100, 'Articulo'),
             'status' => new IntegerField(1, 'Estatus', self::ARTICLES_STATUS_CHOICES),
             'usuario' => new ForeignKeyField(Usuario::class, 'Usuario'),
-            
+            'congreso' => new ForeignKeyField(Congreso::class, 'Congreso'),
         ];
     }
 
